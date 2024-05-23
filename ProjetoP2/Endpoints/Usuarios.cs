@@ -33,34 +33,50 @@ namespace ProjetoP2.Endpoints
 
             rotaUsuarios.MapPut("/{Id}", (ProjetoP2DbContext dbContext, int Id, Usuario usuario) =>
             {
+                try
+                {
 
                     Usuario? usuarioExiste = dbContext.usuarios.Find(Id);
-                    if (usuarioExiste is null)
-                    {
-                        return Results.NotFound("Usuário não encontrado");
-                    }
-            
+
                     usuario.Id = Id;
 
                     dbContext.Entry(usuarioExiste).CurrentValues.SetValues(usuario);
                     dbContext.SaveChanges();
 
                     return TypedResults.NoContent();
+                }
+                catch (ArgumentNullException ex)
+                {
+                    return Results.Problem("Id não existente");
+                }
+                catch (Exception ex)
+                {
+                    return Results.Problem();
+                }
+                
 
             });
 
             rotaUsuarios.MapDelete("/{Id}", (ProjetoP2DbContext dbContext, int Id) =>
             {
-                Usuario? usuarioExiste = dbContext.usuarios.Find(Id);
-                if (usuarioExiste is null)
+                try
                 {
-                    return Results.NotFound("Usuário não encontrado");
+                    Usuario? usuarioExiste = dbContext.usuarios.Find(Id);
+
+
+                    dbContext.usuarios.Remove(usuarioExiste);
+                    dbContext.SaveChanges();
+
+                    return TypedResults.NoContent();
                 }
-
-                dbContext.usuarios.Remove(usuarioExiste);
-                dbContext.SaveChanges();
-
-                return TypedResults.NoContent();
+                catch (ArgumentNullException ex)
+                {
+                    return Results.Problem("Id não existente");
+                }
+                catch (Exception ex)
+                {
+                    return Results.Problem();
+                }
             });
         
         }
