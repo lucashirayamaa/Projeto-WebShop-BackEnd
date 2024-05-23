@@ -23,7 +23,11 @@ namespace ProjetoP2.Migrations
             MySqlModelBuilderExtensions.HasCharSet(modelBuilder, "utf8mb4");
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
+<<<<<<< HEAD
             modelBuilder.Entity("ProjetoP2.Models.Administrador", b =>
+=======
+            modelBuilder.Entity("ProjetoP2.Models.Usuario", b =>
+>>>>>>> a882809561136a2b1b99f52c9dc2c1ff33ca0b34
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -35,6 +39,13 @@ namespace ProjetoP2.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(255)");
 
+<<<<<<< HEAD
+=======
+                    b.Property<string>("NomeUsuario")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+>>>>>>> a882809561136a2b1b99f52c9dc2c1ff33ca0b34
                     b.Property<string>("Senha")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -44,6 +55,7 @@ namespace ProjetoP2.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
+<<<<<<< HEAD
                     b.ToTable("administradores");
                 });
 
@@ -76,6 +88,12 @@ namespace ProjetoP2.Migrations
                         .IsUnique();
 
                     b.ToTable("clientes");
+=======
+                    b.HasIndex("NomeUsuario")
+                        .IsUnique();
+
+                    b.ToTable("usuarios");
+>>>>>>> a882809561136a2b1b99f52c9dc2c1ff33ca0b34
                 });
 #pragma warning restore 612, 618
         }

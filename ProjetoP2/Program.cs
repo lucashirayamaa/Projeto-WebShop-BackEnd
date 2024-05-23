@@ -22,7 +22,6 @@ namespace ProjetoP2 {
 
             app.RegistrarEndPointsClientes();
             app.RegistrarEndPointsAdministradores();
-
             app.Run();
         }
     }

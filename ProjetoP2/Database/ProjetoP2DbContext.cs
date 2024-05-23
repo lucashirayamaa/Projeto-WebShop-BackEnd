@@ -33,6 +33,7 @@ public partial class ProjetoP2DbContext : DbContext
             .UseCollation("utf8mb4_general_ci")
             .HasCharSet("utf8mb4");
 
+
             modelBuilder.Entity<Cliente>().HasIndex(u => u.NomeCliente).IsUnique();
 
             modelBuilder.Entity<Cliente>().HasIndex(u => u.Email).IsUnique();
