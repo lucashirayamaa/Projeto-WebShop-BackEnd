@@ -66,6 +66,8 @@ namespace ProjetoP2 {
 
 
             // Construção WebAplication
+
+
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment()) 
