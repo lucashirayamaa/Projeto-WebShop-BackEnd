@@ -11,8 +11,8 @@ using ProjetoP2.database;
 namespace ProjetoP2.Migrations
 {
     [DbContext(typeof(ProjetoP2DbContext))]
-    [Migration("20240522233819_UniqueKeys")]
-    partial class UniqueKeys
+    [Migration("20240529175626_Criando tabela Chamados")]
+    partial class CriandotabelaChamados
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,6 +26,31 @@ namespace ProjetoP2.Migrations
             MySqlModelBuilderExtensions.HasCharSet(modelBuilder, "utf8mb4");
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
+            modelBuilder.Entity("ProjetoP2.Models.Chamado", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Conteudo")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("Destinatario")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RemetenteId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RemetenteId");
+
+                    b.ToTable("Chamados");
+                });
+
             modelBuilder.Entity("ProjetoP2.Models.Usuario", b =>
                 {
                     b.Property<int>("Id")
@@ -38,9 +63,8 @@ namespace ProjetoP2.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(255)");
 
-                    b.Property<string>("NomeUsuario")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("Perfil")
+                        .HasColumnType("int");
 
                     b.Property<string>("Senha")
                         .IsRequired()
@@ -51,10 +75,18 @@ namespace ProjetoP2.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.HasIndex("NomeUsuario")
-                        .IsUnique();
+                    b.ToTable("Usuarios");
+                });
 
-                    b.ToTable("usuarios");
+            modelBuilder.Entity("ProjetoP2.Models.Chamado", b =>
+                {
+                    b.HasOne("ProjetoP2.Models.Usuario", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("RemetenteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Usuario");
                 });
 #pragma warning restore 612, 618
         }

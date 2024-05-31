@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjetoP2.database;
 
@@ -11,9 +12,11 @@ using ProjetoP2.database;
 namespace ProjetoP2.Migrations
 {
     [DbContext(typeof(ProjetoP2DbContext))]
-    partial class ProjetoP2DbContextModelSnapshot : ModelSnapshot
+    [Migration("20240530011808_desfazendo a migração anterior")]
+    partial class desfazendoamigraçãoanterior
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

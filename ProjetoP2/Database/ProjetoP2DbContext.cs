@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
-using ProjetoP2.Endpoints;
+﻿using Microsoft.EntityFrameworkCore;
 using ProjetoP2.Models;
 
 namespace ProjetoP2.database;
@@ -11,6 +7,8 @@ public partial class ProjetoP2DbContext : DbContext
 {
 
     public DbSet<Usuario> Usuarios { get; set; }
+    public DbSet<Chamado> Chamados {  get; set; }
+    public DbSet<Mensagem> Mensagems { get; set; }
 
     public ProjetoP2DbContext()
     {
@@ -20,11 +18,6 @@ public partial class ProjetoP2DbContext : DbContext
         : base(options)
     {
     }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySql("Server=localhost;User id=root; Database=WebShop", ServerVersion.Parse("10.4.21-mariadb"));
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder

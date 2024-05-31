@@ -19,18 +19,16 @@ namespace ProjetoP2.Endpoints
 
             rotasAuth.MapPost("/login", (ProjetoP2DbContext dbContext, ITokenService tokenService, ParametrosLogin usuario) =>
             {
-                Usuario? clienteEncontrado = dbContext.Usuarios.FirstOrDefault(u => u.Email == usuario.Email && u.Senha == usuario.Senha);
+                Usuario? usuarioEncontrado = dbContext.Usuarios.FirstOrDefault(u => u.Email == usuario.Email && u.Senha == usuario.Senha);
 
-                if (clienteEncontrado == null)
+                if (usuarioEncontrado == null)
                 {
                     return Results.NotFound();
                 }
 
-                string token = tokenService.CreateToken(clienteEncontrado);
+                string token = tokenService.CreateToken(usuarioEncontrado);
 
                 return Results.Ok(new { token });
-
-
 
             });
 
