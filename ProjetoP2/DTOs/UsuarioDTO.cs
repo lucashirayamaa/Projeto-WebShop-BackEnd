@@ -9,13 +9,12 @@ namespace ProjetoP2.DTOs
 
         public string Senha { get; set; }
 
-        public string Perfil { get; set; }
+        public PerfilUsuarioEnum Perfil { get; set; }
 
         public Usuario ToUsuario()
         {
-            PerfilUsuarioEnum perfil;
-            Enum.TryParse(Perfil, out perfil);
-            return new Usuario(Email, Senha, perfil);
+
+            return new Usuario(Email, Senha, Perfil);
         }
     }
 
@@ -26,16 +25,15 @@ namespace ProjetoP2.DTOs
         public string Email { get; set; }
 
 
-        public string Perfil { get; set; }
+        public PerfilUsuarioEnum Perfil { get; set; }
 
         public UsuarioDtoOutput(int id, string email, PerfilUsuarioEnum perfil)
         {
             this.Id = id;
             this.Email = email;
-            this.Perfil = perfil.ToString();
+            this.Perfil = perfil;
         }
     }
-
 
 
 

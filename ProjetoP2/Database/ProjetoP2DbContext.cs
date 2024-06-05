@@ -8,7 +8,7 @@ public partial class ProjetoP2DbContext : DbContext
 
     public DbSet<Usuario> Usuarios { get; set; }
     public DbSet<Chamado> Chamados {  get; set; }
-    public DbSet<Mensagem> Mensagems { get; set; }
+    public DbSet<Mensagem> Mensagens { get; set; }
 
     public ProjetoP2DbContext()
     {

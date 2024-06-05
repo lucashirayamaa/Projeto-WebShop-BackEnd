@@ -4,6 +4,7 @@ using ProjetoP2.DTOs;
 
 namespace ProjetoP2.Models {
 
+// Enum Perfil do usuaário
     public enum PerfilUsuarioEnum
     {
         Cliente,
@@ -27,7 +28,7 @@ namespace ProjetoP2.Models {
         public Usuario(string email, string senha, PerfilUsuarioEnum perfil)
         {
             this.Email = email;
-            this. Senha = senha;
+            this.Senha = senha;
             this.Perfil = perfil;
         }
 

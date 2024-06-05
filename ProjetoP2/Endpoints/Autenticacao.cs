@@ -1,6 +1,8 @@
 ﻿using ProjetoP2.database;
 using ProjetoP2.Models;
+using ProjetoP2.Service;
 using ProjetoP2.Utils;
+using System.Security.Claims;
 
 
 namespace ProjetoP2.Endpoints
@@ -16,6 +18,20 @@ namespace ProjetoP2.Endpoints
         public static void RegistrarEndpointsAutenticacao(this IEndpointRouteBuilder rotas)
         {
             RouteGroupBuilder rotasAuth = rotas.MapGroup("/auth");
+
+            // Método que verifica ID do usuário logado
+
+            rotasAuth.MapGet("/me", (ProjetoP2DbContext dbContext, ClaimsPrincipal usuarioLogado) => {
+                Usuario? usuarioEncontrado = UserService.GetUsuarioPorUsuarioLogado(dbContext, usuarioLogado);
+                if (usuarioEncontrado == null)
+                {
+                    return Results.NotFound();
+                }
+
+                return Results.Ok(usuarioEncontrado.GetUsuarioDtoOutput());
+            }).RequireAuthorization();
+
+            // Método de Login, realiza o login e gera um token
 
             rotasAuth.MapPost("/login", (ProjetoP2DbContext dbContext, ITokenService tokenService, ParametrosLogin usuario) =>
             {

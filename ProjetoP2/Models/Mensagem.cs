@@ -11,7 +11,6 @@ namespace ProjetoP2.Models
         public int Id { get; set; }
         public Chamado Chamado { get; set; }
         public Usuario Remetente { get; set; }
-        public Usuario Destinatario { get; set; }
 
         [MaxLength(255)]
         public string Conteudo { get; set; }
@@ -20,11 +19,11 @@ namespace ProjetoP2.Models
 
         private Mensagem() { }
 
-        public Mensagem(Chamado chamado, Usuario remetente, Usuario destinatario)
+        public Mensagem(Chamado chamado, string conteudo, Usuario remetente)
         {
-            this.Chamado = chamado;
-            this.Remetente = remetente;
-            this.Destinatario = destinatario;
+            Chamado = chamado;
+            Conteudo = conteudo;
+            Remetente = remetente;
             this.Data = DateTime.Now;
         }
 

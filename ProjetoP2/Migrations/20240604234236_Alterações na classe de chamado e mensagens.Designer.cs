@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjetoP2.database;
 
@@ -11,9 +12,11 @@ using ProjetoP2.database;
 namespace ProjetoP2.Migrations
 {
     [DbContext(typeof(ProjetoP2DbContext))]
-    partial class ProjetoP2DbContextModelSnapshot : ModelSnapshot
+    [Migration("20240604234236_Alterações na classe de chamado e mensagens")]
+    partial class Alteraçõesnaclassedechamadoemensagens
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -122,7 +125,7 @@ namespace ProjetoP2.Migrations
             modelBuilder.Entity("ProjetoP2.Models.Mensagem", b =>
                 {
                     b.HasOne("ProjetoP2.Models.Chamado", "Chamado")
-                        .WithMany("Mensagens")
+                        .WithMany()
                         .HasForeignKey("ChamadoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -136,11 +139,6 @@ namespace ProjetoP2.Migrations
                     b.Navigation("Chamado");
 
                     b.Navigation("Remetente");
-                });
-
-            modelBuilder.Entity("ProjetoP2.Models.Chamado", b =>
-                {
-                    b.Navigation("Mensagens");
                 });
 #pragma warning restore 612, 618
         }
