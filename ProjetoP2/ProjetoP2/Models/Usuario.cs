@@ -4,7 +4,7 @@ using ProjetoP2.DTOs;
 
 namespace ProjetoP2.Models {
 
-// Enum Perfil do usuário
+// Enum Perfil do usuaário
     public enum PerfilUsuarioEnum
     {
         Cliente,
@@ -17,12 +17,6 @@ namespace ProjetoP2.Models {
         [Key]
         public int Id { get; set; }
 
-        public string Nome { get; set; }
-
-        public string Celular { get; set; }
-
-        public string Cpf {  get; set; }
-
         public string Email { get; set; }
 
         public string Senha { get; set; }
@@ -31,11 +25,8 @@ namespace ProjetoP2.Models {
 
         private Usuario() { }
 
-        public Usuario(string nome, string celular, string cpf, string email, string senha, PerfilUsuarioEnum perfil)
+        public Usuario(string email, string senha, PerfilUsuarioEnum perfil)
         {
-            this.Nome = nome;
-            this.Celular = celular;
-            this.Cpf = cpf;
             this.Email = email;
             this.Senha = senha;
             this.Perfil = perfil;

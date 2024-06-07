@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjetoP2.database;
 
@@ -11,9 +12,11 @@ using ProjetoP2.database;
 namespace ProjetoP2.Migrations
 {
     [DbContext(typeof(ProjetoP2DbContext))]
-    partial class ProjetoP2DbContextModelSnapshot : ModelSnapshot
+    [Migration("20240531195431_alterando Enum")]
+    partial class alterandoEnum
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,6 +72,9 @@ namespace ProjetoP2.Migrations
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<int>("DestinatarioId")
+                        .HasColumnType("int");
+
                     b.Property<int>("RemetenteId")
                         .HasColumnType("int");
 
@@ -76,9 +82,11 @@ namespace ProjetoP2.Migrations
 
                     b.HasIndex("ChamadoId");
 
+                    b.HasIndex("DestinatarioId");
+
                     b.HasIndex("RemetenteId");
 
-                    b.ToTable("Mensagens");
+                    b.ToTable("Mensagems");
                 });
 
             modelBuilder.Entity("ProjetoP2.Models.Usuario", b =>
@@ -89,21 +97,9 @@ namespace ProjetoP2.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Celular")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Cpf")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("varchar(255)");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("longtext");
 
                     b.Property<int>("Perfil")
                         .HasColumnType("int");
@@ -134,8 +130,14 @@ namespace ProjetoP2.Migrations
             modelBuilder.Entity("ProjetoP2.Models.Mensagem", b =>
                 {
                     b.HasOne("ProjetoP2.Models.Chamado", "Chamado")
-                        .WithMany("Mensagens")
+                        .WithMany()
                         .HasForeignKey("ChamadoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProjetoP2.Models.Usuario", "Destinatario")
+                        .WithMany()
+                        .HasForeignKey("DestinatarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -147,12 +149,9 @@ namespace ProjetoP2.Migrations
 
                     b.Navigation("Chamado");
 
-                    b.Navigation("Remetente");
-                });
+                    b.Navigation("Destinatario");
 
-            modelBuilder.Entity("ProjetoP2.Models.Chamado", b =>
-                {
-                    b.Navigation("Mensagens");
+                    b.Navigation("Remetente");
                 });
 #pragma warning restore 612, 618
         }
